@@ -75,30 +75,25 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
         
-        //post時のコード
+        //タイトルなどのテキストのJSONデータPOST時のコード
         //let config:URLSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundTask")
         let config:URLSessionConfiguration = URLSessionConfiguration.default
         //セッションの生成
         let session:URLSession = URLSession(configuration: config, delegate: self, delegateQueue: nil)
-        //通信先のURLを生成
-        let uploadUrl:NSURL = NSURL(string: "http://192.168.100.100:3000/api/v1/products/1")!
-        
-        
-        
+        //テキストデータpost先のURLを生成
+        let postUrl:NSURL = NSURL(string: "http://192.168.100.100:3000/api/v1/products/1")!
         //POST用のリクエストを生成
-        let request: NSMutableURLRequest = NSMutableURLRequest(url: uploadUrl as URL)
+        let request: NSMutableURLRequest = NSMutableURLRequest(url: postUrl as URL)
         //POSTメソッドを指定
         request.httpMethod = "POST"
-        
         //jsonのデータを一度文字列にしてキーと合わせる
         let data:NSString = "\(NSString(data: json as Data, encoding: String.Encoding.utf8.rawValue)!)" as NSString
         request.httpBody = data.data(using: String.Encoding.utf8.rawValue)
-        
-        
         let task: URLSessionDataTask = session.dataTask(with: request as URLRequest)
-        
         // タスクの実行.
         task.resume()
+        
+                
     }
     
     
