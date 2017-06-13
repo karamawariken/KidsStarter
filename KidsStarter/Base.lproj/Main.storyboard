@@ -155,6 +155,7 @@
                         <outlet property="AddImage1" destination="kq2-t3-8Mr" id="ReV-4A-5na"/>
                         <outlet property="AddImage2" destination="XvK-CN-RDp" id="FPr-TK-Pez"/>
                         <outlet property="AddImage3" destination="Rp1-9F-a45" id="Idg-tu-ZuW"/>
+                        <outlet property="IntroductionTextField" destination="4bi-BS-LCM" id="Fgi-rY-Xt3"/>
                         <outlet property="TitleTextField" destination="5VE-k7-2Ul" id="QIx-6q-rif"/>
                     </connections>
                 </viewController>
