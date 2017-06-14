@@ -23,6 +23,9 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var IntroductionTextField: UITextView!
     @IBOutlet weak var TitleTextField: UITextField!
     var  i:Int!
+    var  image1_upload_check:Int!
+    var  image2_upload_check:Int!
+    var  image3_upload_check:Int!
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -47,62 +50,20 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     //投稿ボタンでpostとfileをrailsサーバーに送る
     @IBAction func postButton(_ sender: Any) {
-        /*
-        var json: NSData!
-        
-        //dictionaryで送信するJSONデータを生成
-        let dict:NSMutableDictionary = NSMutableDictionary()
-        dict.setObject("1", forKey: "child_id" as NSCopying)
-        dict.setObject(TitleTextField.text!, forKey: "title" as NSCopying)
-        dict.setObject(IntroductionTextField.text!, forKey: "introduction" as NSCopying)
-        dict.setObject("introduction_voice_link post test", forKey: "introduction_voice_link" as NSCopying)
-        dict.setObject("image1_link post test", forKey: "image1_link" as NSCopying)
-        dict.setObject("image2_link post test", forKey: "image2_link" as NSCopying)
-        dict.setObject("image3_link post test", forKey: "image3_link" as NSCopying)
-        dict.setObject("state post test", forKey: "state" as NSCopying)
-        if JSONSerialization.isValidJSONObject(dict){
-            
-            do {
-                
-                // DictionaryからJSON(NSData)へ変換.
-                json = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
-                
-                // 生成したJSONデータの確認.
-                print(NSString(data: json as Data, encoding: String.Encoding.utf8.rawValue)!)
-                
-            } catch {
-                print(error)
-            }
-            
-        }
-        
-        
-        
-        //タイトルなどのテキストのJSONデータPOST時のコード
-        //let config:URLSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundTask")
-        let config:URLSessionConfiguration = URLSessionConfiguration.default
-        //セッションの生成
-        let session:URLSession = URLSession(configuration: config, delegate: self, delegateQueue: nil)
-        //テキストデータpost先のURLを生成
-        let postUrl:NSURL = NSURL(string: "http://192.168.100.100:3000/api/v1/products/1")!
-        //POST用のリクエストを生成
-        let request: NSMutableURLRequest = NSMutableURLRequest(url: postUrl as URL)
-        //POSTメソッドを指定
-        request.httpMethod = "POST"
-        //jsonのデータを一度文字列にしてキーと合わせる
-        let data:NSString = "\(NSString(data: json as Data, encoding: String.Encoding.utf8.rawValue)!)" as NSString
-        request.httpBody = data.data(using: String.Encoding.utf8.rawValue)
-        let task: URLSessionDataTask = session.dataTask(with: request as URLRequest)
-        // タスクの実行.
-        task.resume()
-        */
-        
+        let myID:Int = 1
         //Alamoire画像uploadメソッド
         Alamofire.upload(
             multipartFormData: { multipartFormData in
                 // 送信する値の指定をここでします
-                self.addImageData(multipartFormData: multipartFormData, image: self.AddImage1.currentImage)
-                //multipartFormData.append(NSImage, withName: "test", fileName: "test.jpeg", mimeType: "image/jpeg")
+                if(self.image1_upload_check == 1){
+                    self.addImageData(multipartFormData: multipartFormData, image: self.AddImage1.currentImage, image_with_name:"image1_link" )
+                }
+                if(self.image2_upload_check == 1){
+                    self.addImageData(multipartFormData: multipartFormData, image: self.AddImage2.currentImage, image_with_name:"image2_link" )
+                }
+                if(self.image3_upload_check == 1){
+                    self.addImageData(multipartFormData: multipartFormData, image: self.AddImage3.currentImage, image_with_name:"image3_link" )
+                }
                 
                 //ここで投稿時にバリデーションかけるけれど、ここで存在確認してから送る
                 if let data = self.TitleTextField.text?.data(using: String.Encoding.utf8){
@@ -117,14 +78,8 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 if let data = "state".data(using: String.Encoding.utf8){
                     multipartFormData.append(data, withName: "state")
                 }
-                if let data = "image2_link".data(using: String.Encoding.utf8){
-                    multipartFormData.append(data, withName: "image2_link")
-                }
-                if let data = "image3_link".data(using: String.Encoding.utf8){
-                    multipartFormData.append(data, withName: "image3_link")
-                }
         },
-            to: "http://192.168.100.100:3000/api/v1/products/1",
+            to: "http://192.168.100.102:3000/api/v1/products/\(myID)",
             encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .success(let upload, _, _):
@@ -195,13 +150,19 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         if (i==0){
             AddImage1.setImage(selectImage, for: UIControlState())
             let image:UIImage = UIImage(named: "addimage")!
+            //1枚目の画像が入ったと判断
+            image1_upload_check = 1
             AddImage2.setImage(image, for: UIControlState())
         }else if (i==1){
             AddImage2.setImage(selectImage, for: UIControlState())
             let image:UIImage = UIImage(named: "addimage")!
+            //2枚目の画像が入ったと判断
+            image2_upload_check = 1
             AddImage3.setImage(image, for: UIControlState())
             
         }else if (i==2){
+            //3枚目の画像が入ったと判断
+            image3_upload_check = 1
             AddImage3.setImage(selectImage, for: UIControlState())
             
         }
@@ -215,7 +176,9 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         // 帰ってきたデータを文字列に変換.
         let getData:NSString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)!
-        
+        if getData != nil {
+            print(getData)
+        }
         // バックグラウンドだとUIの処理が出来ないので、メインスレッドでUIの処理を行わせる.
         DispatchQueue.main.async(execute: {
             //self.myTextView.text = getData as String
@@ -229,16 +192,20 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         print("URLSessionDidFinishEventsForBackgroundURLSession")
     }
     
-    //画像のデータ形式の判別とそれに合わせたデータの設定
-    private func addImageData(multipartFormData: MultipartFormData, image: UIImage!){
+    //各画像を画像のデータ形式の判別とそれに合わせたデータの設定
+    private func addImageData(multipartFormData: MultipartFormData, image: UIImage! , image_with_name: String){
         var data = UIImagePNGRepresentation(image!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_"
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
         if data != nil {
             // PNG
-            multipartFormData.append(data!, withName: "targetImage",fileName: "targetImage", mimeType: "image/png")
+            multipartFormData.append(data!, withName: image_with_name ,fileName: dateString + image_with_name, mimeType: "image/png")
         } else {
             // jpg
             data = UIImageJPEGRepresentation(image!, 1.0)
-            multipartFormData.append((data?.base64EncodedData())!, withName: "targetImage",fileName: "targetImage", mimeType: "image/jpeg")
+            multipartFormData.append((data?.base64EncodedData())!,  withName: image_with_name ,fileName: dateString + image_with_name, mimeType: "image/jpeg")
         }
         
     }
