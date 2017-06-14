@@ -6,6 +6,7 @@
 //  Copyright © 2017年 nishi kosei. All rights reserved.
 //
 
+import Alamofire
 import UIKit
 
 class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, URLSessionDelegate, URLSessionDataDelegate{
@@ -46,6 +47,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     //投稿ボタンでpostとfileをrailsサーバーに送る
     @IBAction func postButton(_ sender: Any) {
+        /*
         var json: NSData!
         
         //dictionaryで送信するJSONデータを生成
@@ -75,6 +77,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
         
+        
         //タイトルなどのテキストのJSONデータPOST時のコード
         //let config:URLSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundTask")
         let config:URLSessionConfiguration = URLSessionConfiguration.default
@@ -92,8 +95,52 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         let task: URLSessionDataTask = session.dataTask(with: request as URLRequest)
         // タスクの実行.
         task.resume()
+        */
         
+        //Alamoire画像uploadメソッド
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                // 送信する値の指定をここでします
+                self.addImageData(multipartFormData: multipartFormData, image: self.AddImage1.currentImage)
+                //multipartFormData.append(NSImage, withName: "test", fileName: "test.jpeg", mimeType: "image/jpeg")
                 
+                //ここで投稿時にバリデーションかけるけれど、ここで存在確認してから送る
+                if let data = self.TitleTextField.text?.data(using: String.Encoding.utf8){
+                    multipartFormData.append(data, withName: "title")
+                }
+                if let data = self.IntroductionTextField.text?.data(using: String.Encoding.utf8){
+                    multipartFormData.append(data, withName: "introduction")
+                }
+                if let data = "voice_data_link_hogehoge".data(using: String.Encoding.utf8){
+                    multipartFormData.append(data, withName: "introduction_voice_link")
+                }
+                if let data = "state".data(using: String.Encoding.utf8){
+                    multipartFormData.append(data, withName: "state")
+                }
+                if let data = "image2_link".data(using: String.Encoding.utf8){
+                    multipartFormData.append(data, withName: "image2_link")
+                }
+                if let data = "image3_link".data(using: String.Encoding.utf8){
+                    multipartFormData.append(data, withName: "image3_link")
+                }
+        },
+            to: "http://192.168.100.100:3000/api/v1/products/1",
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+                        // 成功
+                        let responseData = response
+                        print(responseData ?? "成功")
+                    }
+                case .failure(let encodingError):
+                    // 失敗
+                    print(encodingError)
+                }
+        }
+        )
+
+        
     }
     
     
@@ -180,6 +227,20 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
      */
     func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
         print("URLSessionDidFinishEventsForBackgroundURLSession")
-    } 
+    }
+    
+    //画像のデータ形式の判別とそれに合わせたデータの設定
+    private func addImageData(multipartFormData: MultipartFormData, image: UIImage!){
+        var data = UIImagePNGRepresentation(image!)
+        if data != nil {
+            // PNG
+            multipartFormData.append(data!, withName: "targetImage",fileName: "targetImage", mimeType: "image/png")
+        } else {
+            // jpg
+            data = UIImageJPEGRepresentation(image!, 1.0)
+            multipartFormData.append((data?.base64EncodedData())!, withName: "targetImage",fileName: "targetImage", mimeType: "image/jpeg")
+        }
+        
+    }
 }
 
