@@ -75,7 +75,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 if let data = "voice_data_link_hogehoge".data(using: String.Encoding.utf8){
                     multipartFormData.append(data, withName: "introduction_voice_link")
                 }
-                if let data = "state".data(using: String.Encoding.utf8){
+                if let data = "public".data(using: String.Encoding.utf8){
                     multipartFormData.append(data, withName: "state")
                 }
         },
