@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FacebookCore
+import FacebookLogin
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        checkFirstViewController()
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
 
@@ -41,6 +45,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+        
+    }
+    
+    func checkFirstViewController(){
+        
+        let isLogin = UserDefaults.standard.bool(forKey: "UserLogin")
+        var next: UIViewController!
+        
+        if isLogin {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            //初期画面のUIViewControllerのindetifierIDを入れないと指定ができずエラーになる
+            next = storyboard.instantiateViewController(withIdentifier: "First")
+            
+        } else {
+            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            next = storyboard.instantiateViewController(withIdentifier: "Login")
+        }
+        
+        self.window?.rootViewController = next
+        self.window?.backgroundColor = UIColor.white
+        self.window?.makeKeyAndVisible()
+    }
 }
 
