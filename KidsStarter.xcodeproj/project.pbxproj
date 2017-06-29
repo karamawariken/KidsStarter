@@ -17,6 +17,9 @@
 		4542513C1EEF065A003A5B78 /* KidsStarterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4542513B1EEF065A003A5B78 /* KidsStarterUITests.swift */; };
 		4542514D1EEF1650003A5B78 /* addimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 4542514B1EEF1650003A5B78 /* addimage.png */; };
 		4542514E1EEF1650003A5B78 /* noimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 4542514C1EEF1650003A5B78 /* noimage.png */; };
+		454251551F003EB1003A5B78 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454251541F003EB1003A5B78 /* LoginViewController.swift */; };
+		4542515A1F003F84003A5B78 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 454251591F003F84003A5B78 /* Login.storyboard */; };
+		4542515C1F00A17A003A5B78 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4542515B1F00A17A003A5B78 /* SignupViewController.swift */; };
 		EFCBBBA1E71B0F1F89A92DE2 /* Pods_KidsStarter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 147E5BA559D431083E65D9ED /* Pods_KidsStarter.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +59,9 @@
 		4542513D1EEF065A003A5B78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4542514B1EEF1650003A5B78 /* addimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addimage.png; sourceTree = "<group>"; };
 		4542514C1EEF1650003A5B78 /* noimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noimage.png; sourceTree = "<group>"; };
+		454251541F003EB1003A5B78 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		454251591F003F84003A5B78 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		4542515B1F00A17A003A5B78 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		CBE148ABBB6AA6E2FF6B6A3D /* Pods-KidsStarter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidsStarter.release.xcconfig"; path = "Pods/Target Support Files/Pods-KidsStarter/Pods-KidsStarter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,9 +117,10 @@
 			isa = PBXGroup;
 			children = (
 				454251191EEF0659003A5B78 /* AppDelegate.swift */,
-				4542511B1EEF0659003A5B78 /* FirstViewController.swift */,
-				4542511D1EEF0659003A5B78 /* SecondViewController.swift */,
+				454251501F002F9E003A5B78 /* TabBar */,
+				454251531F003E8D003A5B78 /* Login */,
 				4542511F1EEF0659003A5B78 /* Main.storyboard */,
+				454251591F003F84003A5B78 /* Login.storyboard */,
 				454251221EEF0659003A5B78 /* Assets.xcassets */,
 				454251241EEF0659003A5B78 /* LaunchScreen.storyboard */,
 				454251271EEF0659003A5B78 /* Info.plist */,
@@ -147,6 +154,24 @@
 				4542514C1EEF1650003A5B78 /* noimage.png */,
 			);
 			name = Resourse;
+			sourceTree = "<group>";
+		};
+		454251501F002F9E003A5B78 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				4542511B1EEF0659003A5B78 /* FirstViewController.swift */,
+				4542511D1EEF0659003A5B78 /* SecondViewController.swift */,
+			);
+			name = TabBar;
+			sourceTree = "<group>";
+		};
+		454251531F003E8D003A5B78 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				454251541F003EB1003A5B78 /* LoginViewController.swift */,
+				4542515B1F00A17A003A5B78 /* SignupViewController.swift */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		927E237285CB1ED8238D2B21 /* Pods */ = {
@@ -281,6 +306,7 @@
 			files = (
 				4542514D1EEF1650003A5B78 /* addimage.png in Resources */,
 				4542514E1EEF1650003A5B78 /* noimage.png in Resources */,
+				4542515A1F003F84003A5B78 /* Login.storyboard in Resources */,
 				454251261EEF0659003A5B78 /* LaunchScreen.storyboard in Resources */,
 				454251231EEF0659003A5B78 /* Assets.xcassets in Resources */,
 				454251211EEF0659003A5B78 /* Main.storyboard in Resources */,
@@ -356,7 +382,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				454251551F003EB1003A5B78 /* LoginViewController.swift in Sources */,
 				4542511E1EEF0659003A5B78 /* SecondViewController.swift in Sources */,
+				4542515C1F00A17A003A5B78 /* SignupViewController.swift in Sources */,
 				4542511A1EEF0659003A5B78 /* AppDelegate.swift in Sources */,
 				4542511C1EEF0659003A5B78 /* FirstViewController.swift in Sources */,
 			);
@@ -485,7 +513,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -611,6 +639,7 @@
 				454251421EEF065A003A5B78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		454251431EEF065A003A5B78 /* Build configuration list for PBXNativeTarget "KidsStarterTests" */ = {
 			isa = XCConfigurationList;
@@ -619,6 +648,7 @@
 				454251451EEF065A003A5B78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		454251461EEF065A003A5B78 /* Build configuration list for PBXNativeTarget "KidsStarterUITests" */ = {
 			isa = XCConfigurationList;
@@ -627,6 +657,7 @@
 				454251481EEF065A003A5B78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
