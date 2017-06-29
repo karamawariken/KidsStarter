@@ -15,7 +15,6 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
     }
     @IBOutlet weak var AddImage1: UIButton!
     @IBOutlet weak var AddImage2: UIButton!
@@ -75,11 +74,11 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 if let data = "voice_data_link_hogehoge".data(using: String.Encoding.utf8){
                     multipartFormData.append(data, withName: "introduction_voice_link")
                 }
-                if let data = "public".data(using: String.Encoding.utf8){
+                if let data = "draft".data(using: String.Encoding.utf8){
                     multipartFormData.append(data, withName: "state")
                 }
         },
-            to: "http://192.168.100.102:3000/api/v1/products/\(myID)",
+            to: "http://192.168.0.4:3000/api/v1/products/\(myID)",
             encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .success(let upload, _, _):

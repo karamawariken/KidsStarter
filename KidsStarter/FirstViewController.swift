@@ -54,7 +54,7 @@ class FirstViewController: UIViewController,UITableViewDelegate,UITableViewDataS
 
     /// セルの個数を指定するデリゲートメソッド（必須）
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 10
     }
     
     /// セルに値を設定するデータソースメソッド（必須）
