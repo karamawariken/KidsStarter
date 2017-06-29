@@ -48,7 +48,7 @@ class LoginViewController: UIViewController{
                     UserDefaults.standard.set(userdata["access_token"] as! String, forKey: "Access-Token")
                     //現在のアプリ利用者playerをこちらのログインでは、大人と認識する
                     //一般 :adult  子ども :child
-                    UserDefaults.standard.set("adult", forKey: "player")
+                    UserDefaults.standard.set("adult", forKey: "Player")
                 }
                 //TODO: 各ボタンを押した後の処理を別funcで書きたい
                 let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
